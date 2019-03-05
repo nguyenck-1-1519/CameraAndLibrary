@@ -145,11 +145,11 @@
 				61727E522228DA4700F2BCB2 /* Model */,
 				61DBCDE5222626140091EF26 /* AppDelegate.swift */,
 				61DBCDE7222626140091EF26 /* ViewController.swift */,
-				61727E5922290CDC00F2BCB2 /* ImageCollectionViewCell.swift */,
 				61DBCDE9222626140091EF26 /* Main.storyboard */,
 				61DBCDEC222626170091EF26 /* Assets.xcassets */,
 				61DBCDEE222626170091EF26 /* LaunchScreen.storyboard */,
 				61DBCDF1222626170091EF26 /* Info.plist */,
+				61727E5922290CDC00F2BCB2 /* ImageCollectionViewCell.swift */,
 				61727E5B22291F9900F2BCB2 /* ImageDetailViewController.swift */,
 			);
 			path = CameraAndLibrary;

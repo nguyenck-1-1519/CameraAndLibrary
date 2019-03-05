@@ -26,6 +26,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var flashButton: UIButton!
     @IBOutlet weak var recordingImageView: UIImageView!
     @IBOutlet weak var switchCaptureTypeButton: UIButton!
+    @IBOutlet weak var collectionView: UICollectionView!
     // variable
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCapturePhotoOutput?
@@ -34,17 +35,49 @@ class ViewController: UIViewController {
     var currentFlashModeSetting: AVCaptureDevice.FlashMode = .off
     var currentCaptureType: CaptureType = .capture
     var isRecording = false
-    var listImage = [ImageData]()
+
+    let thumbnailSize = CGSize(width: (UIScreen.main.bounds.width - 30) / 4, height: (UIScreen.main.bounds.width - 30) / 4)
+    var fetchResult: PHFetchResult<PHAsset>? = nil
+    var imageManager = PHCachingImageManager()
+
+//    var listImage = [ImageData]() {
+//        didSet {
+//            DispatchQueue.main.async { [weak self] in
+//                self?.collectionView.reloadData()
+//            }
+//        }
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        listImage = PhotoHelper.getAllAssets()
+        PHPhotoLibrary.requestAuthorization { [weak self] (authorization) in
+            switch authorization {
+            case .authorized:
+                // fetch request all photo
+                self?.getAllImageRequest()
+            default:
+                self?.chechPhotoAuthorization()
+            }
+        }
         configView()
         configCameraView()
     }
 
     deinit {
         captureSession?.stopRunning()
+        PHPhotoLibrary.shared().unregisterChangeObserver(self)
+    }
+
+    private func getAllImageRequest() {
+        if fetchResult == nil {
+            let allPhotosOptions = PHFetchOptions()
+            allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+            fetchResult = PHAsset.fetchAssets(with: .image, options: allPhotosOptions)
+        }
+    }
+
+    private func resetCachedAssets() {
+        imageManager.stopCachingImagesForAllAssets()
     }
 
     private func configView() {
@@ -52,9 +85,11 @@ class ViewController: UIViewController {
         let switchCameraImage = #imageLiteral(resourceName: "SwitchCamButton").withRenderingMode(.alwaysTemplate)
         switchCameraButton.setImage(switchCameraImage, for: .normal)
         switchCameraButton.tintColor = .white
+        recordingImageView.isHidden = true
     }
 
     private func configCameraView() {
+        PHPhotoLibrary.shared().register(self)
         // configure session
         captureSession = AVCaptureSession()
         captureSession?.sessionPreset = .high
@@ -63,6 +98,7 @@ class ViewController: UIViewController {
         guard let backCamera = AVCaptureDevice.default(for: .video) else {
             fatalError("cant get device")
         }
+        flashButton.isHidden = !backCamera.hasFlash
         // try to create an AVCaptureDeviceInput - midleman to attch input device with backCam
         do {
             let captureInput = try AVCaptureDeviceInput(device: backCamera)
@@ -76,9 +112,12 @@ class ViewController: UIViewController {
             }
             if captureSession.canAddInput(captureInput), captureSession.canAddOutput(output),
                 captureSession.canAddOutput(videoOutput) {
+                // configure for session
+                captureSession.beginConfiguration()
                 captureSession.addInput(captureInput)
                 captureSession.addOutput(output)
                 captureSession.addOutput(videoOutput)
+                captureSession.commitConfiguration()
                 setUpLivePreview()
             }
         } catch let error {
@@ -156,6 +195,35 @@ class ViewController: UIViewController {
         }
     }
 
+    private func chechPhotoAuthorization() -> Bool {
+        switch PHPhotoLibrary.authorizationStatus() {
+        case .authorized:
+            return true
+        default:
+            let alertController = UIAlertController(title: "Photo Setting Error",
+                                                    message: "You need to setting  authorization to continue using app",
+                                                    preferredStyle: .alert)
+            let settingsAction = UIAlertAction(title: "Setting", style: .default) { _ in
+                guard let settingUrl = URL(string: UIApplication.openSettingsURLString) else {
+                    return
+                }
+                if UIApplication.shared.canOpenURL(settingUrl) {
+                    UIApplication.shared.open(settingUrl, options: [:], completionHandler: { (success) in
+                        print("____ \(success) ___")
+                        return
+                    })
+                }
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { _ in
+                return
+            }
+            alertController.addAction(settingsAction)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true, completion: nil)
+            return false
+        }
+    }
+
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             // we got back an error!
@@ -167,6 +235,7 @@ class ViewController: UIViewController {
 
     // MARK: Handle outlet action
     @IBAction func onCaptureButtonClicked(_ sender: UIButton) {
+        if !chechPhotoAuthorization() { return }
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         guard
             let captureSession = captureSession,
@@ -182,9 +251,11 @@ class ViewController: UIViewController {
         } else {
             if isRecording {
                 isRecording = false
+                recordingImageView.isHidden = true
                 videoOutput?.stopRecording()
             } else {
                 isRecording = true
+                recordingImageView.isHidden = false
                 let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
                 let fileUrl = paths[0].appendingPathExtension("output.mov")
                 try? FileManager.default.removeItem(at: fileUrl)
@@ -192,6 +263,7 @@ class ViewController: UIViewController {
             }
         }
     }
+
     @IBAction func onPreviewImageClicked(_ sender: UITapGestureRecognizer) {
         print("tap gesture")
     }
@@ -219,6 +291,7 @@ class ViewController: UIViewController {
         }
         do {
             guard let newCamera = newCamera else { return }
+            flashButton.isHidden = !newCamera.hasFlash
             try captureSession.addInput(AVCaptureDeviceInput(device: newCamera))
         } catch let error {
             fatalError(error.localizedDescription)
@@ -259,7 +332,16 @@ extension ViewController: AVCaptureFileOutputRecordingDelegate {
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL,
                     from connections: [AVCaptureConnection], error: Error?) {
         isRecording = false
+        recordingImageView.isHidden = true
         print("abc xyz su`")
+    }
+
+}
+
+extension ViewController: PHPhotoLibraryChangeObserver {
+
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        print("change")
     }
 
 }
