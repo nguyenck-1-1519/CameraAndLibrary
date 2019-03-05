@@ -146,7 +146,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y0q-br-pnI">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Y0q-br-pnI">
                                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                         </imageView>
                                                     </subviews>
@@ -195,6 +195,7 @@
                     <connections>
                         <outlet property="cameraView" destination="f4F-Vr-yNP" id="j0D-Jh-966"/>
                         <outlet property="captureButton" destination="AD3-js-buH" id="w9J-FJ-lTb"/>
+                        <outlet property="collectionView" destination="g1p-kS-HAS" id="9Rx-em-ttS"/>
                         <outlet property="controlView" destination="InW-oD-LEk" id="3Ll-aq-kYN"/>
                         <outlet property="flashAnimationView" destination="VEq-Xq-00z" id="Nv0-1E-Cbs"/>
                         <outlet property="flashButton" destination="5Hx-bd-yFB" id="xdd-q3-ESB"/>

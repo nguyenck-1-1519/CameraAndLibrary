@@ -12,7 +12,7 @@ import UIKit
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return listImage.count
+        return fetchResult?.count ?? 0
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -21,13 +21,15 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
                                  for: indexPath) as? ImageCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.indexPath = indexPath.row
-        cell.delegate = self
-        if listImage[indexPath.row].previewImage == nil {
-            cell.configCell(withAsset: listImage[indexPath.row].asset)
-        } else{
-            cell.displayImageView.image = listImage[indexPath.row].previewImage
+        guard let asset = fetchResult?.object(at: indexPath.item) else { return UICollectionViewCell() }
+        cell.assetsIdentifier = asset.localIdentifier
+        imageManager.requestImage(for: asset, targetSize: thumbnailSize,
+                                  contentMode: .aspectFill, options: nil) { (image, _) in
+                                    if cell.assetsIdentifier == asset.localIdentifier {
+                                        cell.displayImageView.image = image
+                                    }
         }
+
         return cell
     }
 
@@ -36,21 +38,13 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
             .instantiateViewController(withIdentifier: "ImageDetailViewController") as? ImageDetailViewController else {
                 return
         }
-        viewController.asset = listImage[indexPath.row].asset
+        viewController.asset = fetchResult?.object(at: indexPath.item)
         present(viewController, animated: true, completion: nil)
     }
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 80, height: 80)
+        return thumbnailSize
     }
-}
-
-extension ViewController: ImageCellDelegate {
-
-    func didFinishLoadThumb(image: UIImage?, indexPath: Int) {
-        listImage[indexPath].previewImage = image
-    }
-
 }
