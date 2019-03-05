@@ -25,16 +25,17 @@ public class PhotoHelper {
         }
     }
 
-    class func getAllAssets() -> [PHAsset] {
+    class func getAllAssets() -> [ImageData] {
         let fetchOptions = PHFetchOptions()
         let sortOrder = [NSSortDescriptor(key: "creationDate", ascending: false)]
         fetchOptions.sortDescriptors = sortOrder
         let allAssets = PHAsset.fetchAssets(with: .image, options: fetchOptions)
-        var assets = [PHAsset]()
+        var imagesData = [ImageData]()
         for index in 0..<allAssets.count {
-            assets.append(allAssets[index])
+            let imageData = ImageData(previewImage: nil, asset: allAssets[index])
+            imagesData.append(imageData)
         }
-        return assets
+        return imagesData
     }
 
 //    class func getAllPhotos() -> [ImageData?] {
