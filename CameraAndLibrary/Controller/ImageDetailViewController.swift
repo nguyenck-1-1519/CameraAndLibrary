@@ -39,6 +39,7 @@ enum ZoomLevel: CGFloat {
 class ImageDetailViewController: UIViewController {
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var contentImageView: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
 
     var asset: PHAsset!
     var currentZoomLvl: ZoomLevel = .normal
@@ -57,12 +58,12 @@ class ImageDetailViewController: UIViewController {
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTapGesture(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         view.addGestureRecognizer(doubleTapGesture)
-
-        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePingGesture(_:)))
-        view.addGestureRecognizer(pinchGesture)
-
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-        view.addGestureRecognizer(panGesture)
+//
+//        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePingGesture(_:)))
+//        view.addGestureRecognizer(pinchGesture)
+//
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+//        view.addGestureRecognizer(panGesture)
     }
 
     @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
@@ -84,8 +85,7 @@ class ImageDetailViewController: UIViewController {
     @objc func handleDoubleTapGesture(_ recognizer: UITapGestureRecognizer) {
         currentZoomLvl.getNextLevel()
         isZooming = currentZoomLvl.rawValue != 1
-        contentImageView.transform = CGAffineTransform(scaleX: currentZoomLvl.rawValue,
-                                                       y: currentZoomLvl.rawValue)
+        scrollView.setZoomScale(currentZoomLvl.rawValue, animated: true)
     }
 
     @objc func handlePingGesture(_ recognizer: UIPinchGestureRecognizer) {
@@ -102,5 +102,15 @@ class ImageDetailViewController: UIViewController {
 
     @IBAction func onDismissButtonClicked(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ImageDetailViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return contentImageView
+    }
+
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        currentZoomLvl.getCurrentLevel(scale: scrollView.zoomScale)
     }
 }
