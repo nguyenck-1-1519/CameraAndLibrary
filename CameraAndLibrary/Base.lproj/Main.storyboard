@@ -222,18 +222,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="APx-i1-Tcn">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="eTW-Kw-Nkt">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SYs-un-urS">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="SYs-un-urS" firstAttribute="leading" secondItem="eTW-Kw-Nkt" secondAttribute="leading" id="Kuk-MD-rCp"/>
+                                    <constraint firstAttribute="bottom" secondItem="SYs-un-urS" secondAttribute="bottom" id="Oz9-ls-vfZ"/>
+                                    <constraint firstItem="SYs-un-urS" firstAttribute="top" secondItem="eTW-Kw-Nkt" secondAttribute="top" id="spk-me-h4c"/>
+                                    <constraint firstAttribute="trailing" secondItem="SYs-un-urS" secondAttribute="trailing" id="z2f-md-Nqb"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="vAB-Ry-adE" id="Poc-N6-bIw"/>
+                                </connections>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g7T-Go-QcQ">
                                 <rect key="frame" x="20" y="20" width="46" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.0" green="0.66666666669999997" blue="0.01176470588" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="PhE-AS-Nu9"/>
                                     <constraint firstAttribute="width" constant="46" id="dAq-5j-qsh"/>
                                 </constraints>
                                 <state key="normal" title="Dismis">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="onDismissButtonClicked:" destination="vAB-Ry-adE" eventType="touchUpInside" id="ql0-Dv-fWI"/>
@@ -242,18 +256,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="APx-i1-Tcn" secondAttribute="trailing" id="1u0-ap-ecA"/>
-                            <constraint firstItem="APx-i1-Tcn" firstAttribute="leading" secondItem="JTf-4U-oby" secondAttribute="leading" id="3Zq-e3-HB2"/>
-                            <constraint firstItem="APx-i1-Tcn" firstAttribute="top" secondItem="JTf-4U-oby" secondAttribute="top" id="7ny-4j-ge5"/>
+                            <constraint firstItem="eTW-Kw-Nkt" firstAttribute="leading" secondItem="JTf-4U-oby" secondAttribute="leading" id="2T0-ue-IvJ"/>
+                            <constraint firstAttribute="trailing" secondItem="eTW-Kw-Nkt" secondAttribute="trailing" id="2WU-hu-VyY"/>
+                            <constraint firstAttribute="bottom" secondItem="eTW-Kw-Nkt" secondAttribute="bottom" id="7gx-5D-SET"/>
                             <constraint firstItem="g7T-Go-QcQ" firstAttribute="leading" secondItem="PD7-xl-ozs" secondAttribute="leading" constant="20" id="TT5-fJ-oju"/>
-                            <constraint firstAttribute="bottom" secondItem="APx-i1-Tcn" secondAttribute="bottom" id="Yxd-nx-qqd"/>
+                            <constraint firstItem="SYs-un-urS" firstAttribute="height" secondItem="JTf-4U-oby" secondAttribute="height" id="duj-pS-W36"/>
+                            <constraint firstItem="SYs-un-urS" firstAttribute="width" secondItem="JTf-4U-oby" secondAttribute="width" id="fzs-rt-9FI"/>
                             <constraint firstItem="g7T-Go-QcQ" firstAttribute="top" secondItem="PD7-xl-ozs" secondAttribute="top" id="j8R-2t-6XU"/>
+                            <constraint firstItem="eTW-Kw-Nkt" firstAttribute="top" secondItem="JTf-4U-oby" secondAttribute="top" id="kt3-Ft-enf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PD7-xl-ozs"/>
                     </view>
                     <connections>
-                        <outlet property="contentImageView" destination="APx-i1-Tcn" id="caX-z5-xJ8"/>
+                        <outlet property="contentImageView" destination="SYs-un-urS" id="CSB-o0-SHY"/>
                         <outlet property="dismissButton" destination="g7T-Go-QcQ" id="kck-Ek-9Bl"/>
+                        <outlet property="scrollView" destination="eTW-Kw-Nkt" id="hPk-C7-ZLi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ZO-L5-9ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
