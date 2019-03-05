@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     var currentFlashModeSetting: AVCaptureDevice.FlashMode = .off
     var currentCaptureType: CaptureType = .capture
     var isRecording = false
-    var listImage = [PHAsset]()
+    var listImage = [ImageData]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
