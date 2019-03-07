@@ -108,6 +108,13 @@
                                                     <constraint firstAttribute="width" secondItem="2Me-gj-AYz" secondAttribute="height" multiplier="1:1" id="0AZ-sN-NmR"/>
                                                 </constraints>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kd8-yP-TF6">
+                                                <rect key="frame" x="244" y="29.5" width="46" height="21"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="highlightedColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -118,11 +125,13 @@
                                             <constraint firstItem="InW-oD-LEk" firstAttribute="leading" secondItem="f4F-Vr-yNP" secondAttribute="leading" id="NTF-mK-cb4"/>
                                             <constraint firstItem="5Hx-bd-yFB" firstAttribute="height" secondItem="BaM-jq-RH7" secondAttribute="height" constant="-10" id="QTR-9f-tyg"/>
                                             <constraint firstAttribute="trailing" secondItem="VEq-Xq-00z" secondAttribute="trailing" id="VrH-hd-EdH"/>
+                                            <constraint firstItem="kd8-yP-TF6" firstAttribute="centerY" secondItem="2Me-gj-AYz" secondAttribute="centerY" id="ZfN-2D-pwI"/>
                                             <constraint firstItem="5Hx-bd-yFB" firstAttribute="centerY" secondItem="BaM-jq-RH7" secondAttribute="centerY" id="ZwJ-Yp-pcb"/>
                                             <constraint firstAttribute="bottom" secondItem="InW-oD-LEk" secondAttribute="bottom" id="aH2-yb-ySI"/>
                                             <constraint firstItem="BaM-jq-RH7" firstAttribute="top" secondItem="f4F-Vr-yNP" secondAttribute="top" constant="20" id="aTz-6t-Kfn"/>
                                             <constraint firstAttribute="trailing" secondItem="2Me-gj-AYz" secondAttribute="trailing" constant="20" id="bJo-TF-6RG"/>
                                             <constraint firstItem="VEq-Xq-00z" firstAttribute="leading" secondItem="f4F-Vr-yNP" secondAttribute="leading" id="imK-QE-XTI"/>
+                                            <constraint firstItem="2Me-gj-AYz" firstAttribute="leading" secondItem="kd8-yP-TF6" secondAttribute="trailing" constant="20" id="nsl-I4-x1l"/>
                                             <constraint firstItem="2Me-gj-AYz" firstAttribute="height" secondItem="5Hx-bd-yFB" secondAttribute="height" multiplier="1.5" id="pnV-UF-tbH"/>
                                             <constraint firstAttribute="bottom" secondItem="VEq-Xq-00z" secondAttribute="bottom" id="wzT-0e-dUj"/>
                                             <constraint firstItem="5Hx-bd-yFB" firstAttribute="width" secondItem="BaM-jq-RH7" secondAttribute="width" constant="-10" id="xIy-i8-Mkg"/>
@@ -200,6 +209,7 @@
                         <outlet property="flashAnimationView" destination="VEq-Xq-00z" id="Nv0-1E-Cbs"/>
                         <outlet property="flashButton" destination="5Hx-bd-yFB" id="xdd-q3-ESB"/>
                         <outlet property="previewImageView" destination="jll-zp-Teo" id="8pk-8P-enP"/>
+                        <outlet property="recordTimerLabel" destination="kd8-yP-TF6" id="tpH-2k-ADw"/>
                         <outlet property="recordingImageView" destination="2Me-gj-AYz" id="BMv-9Z-iye"/>
                         <outlet property="switchCameraButton" destination="BaM-jq-RH7" id="1ux-Pj-V9l"/>
                         <outlet property="switchCaptureTypeButton" destination="nh0-Yd-gfj" id="z2l-cT-Uqw"/>

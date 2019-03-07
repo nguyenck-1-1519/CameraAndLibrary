@@ -85,7 +85,8 @@ class ImageDetailViewController: UIViewController {
     @objc func handleDoubleTapGesture(_ recognizer: UITapGestureRecognizer) {
         currentZoomLvl.getNextLevel()
         isZooming = currentZoomLvl.rawValue != 1
-        scrollView.setZoomScale(currentZoomLvl.rawValue, animated: true)
+        let tapPoint = recognizer.location(in: scrollView)
+        scrollView.zoomToPoint(zoomPoint: tapPoint, withScale: currentZoomLvl.rawValue, animated: true)
     }
 
     @objc func handlePingGesture(_ recognizer: UIPinchGestureRecognizer) {
@@ -113,4 +114,26 @@ extension ImageDetailViewController: UIScrollViewDelegate {
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         currentZoomLvl.getCurrentLevel(scale: scrollView.zoomScale)
     }
+}
+
+extension UIScrollView {
+
+    func zoomToPoint(zoomPoint: CGPoint, withScale scale: CGFloat, animated: Bool) {
+        //translate the zoom point to relative to the content rect
+        let newZoomPoint = CGPoint(x: zoomPoint.x / self.zoomScale, y: zoomPoint.y / self.zoomScale )
+
+        //derive the size of the region to zoom to
+        let zoomSize = CGSize(width: self.bounds.size.width / scale, height: self.bounds.size.height / scale)
+
+        //offset the zoom rect so the actual zoom point is in the middle of the rectangle
+        let zoomRect = CGRect(x: newZoomPoint.x - zoomSize.width / 2.0,
+                              y: newZoomPoint.y - zoomSize.height / 2.0,
+                              width: zoomSize.width,
+                              height: zoomSize.height)
+
+        //apply the resize
+        self.zoom(to: zoomRect, animated: true)
+
+    }
+
 }
