@@ -4,12 +4,6 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>we need to use library to view image</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>we need to use library to save image</string>
-	<key>NSCameraUsageDescription</key>
-	<string>we need to use camera to take picture</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -21,11 +15,17 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>we need to use camera to take picture</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>we need to use library to save image</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>we need to use library to view image</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

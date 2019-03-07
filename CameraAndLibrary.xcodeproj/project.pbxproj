@@ -11,6 +11,8 @@
 		61727E5822290C4000F2BCB2 /* ViewController+CollectionExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61727E5722290C4000F2BCB2 /* ViewController+CollectionExt.swift */; };
 		61727E5A22290CDC00F2BCB2 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61727E5922290CDC00F2BCB2 /* ImageCollectionViewCell.swift */; };
 		61727E5C22291F9900F2BCB2 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61727E5B22291F9900F2BCB2 /* ImageDetailViewController.swift */; };
+		61C26BD5222FC551000FC0EA /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26BD4222FC551000FC0EA /* Utilities.swift */; };
+		61C26BD82230B197000FC0EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61C26BD72230B197000FC0EA /* GoogleService-Info.plist */; };
 		61DBCDE6222626140091EF26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBCDE5222626140091EF26 /* AppDelegate.swift */; };
 		61DBCDE8222626140091EF26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBCDE7222626140091EF26 /* ViewController.swift */; };
 		61DBCDEB222626140091EF26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61DBCDE9222626140091EF26 /* Main.storyboard */; };
@@ -42,6 +44,9 @@
 		61727E5722290C4000F2BCB2 /* ViewController+CollectionExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+CollectionExt.swift"; sourceTree = "<group>"; };
 		61727E5922290CDC00F2BCB2 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		61727E5B22291F9900F2BCB2 /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
+		61C26BD4222FC551000FC0EA /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		61C26BD62230AF4C000FC0EA /* CameraAndLibrary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CameraAndLibrary.entitlements; sourceTree = "<group>"; };
+		61C26BD72230B197000FC0EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		61DBCDE2222626140091EF26 /* CameraAndLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraAndLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61DBCDE5222626140091EF26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61DBCDE7222626140091EF26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				61727E4F2227D5A100F2BCB2 /* PhotoHelper.swift */,
+				61C26BD4222FC551000FC0EA /* Utilities.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -123,6 +129,8 @@
 		61DBCDE4222626140091EF26 /* CameraAndLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				61C26BD62230AF4C000FC0EA /* CameraAndLibrary.entitlements */,
+				61C26BD72230B197000FC0EA /* GoogleService-Info.plist */,
 				61070724222CC6D20076739D /* Controller */,
 				61070723222CC6C20076739D /* Helper */,
 				61DBCDE5222626140091EF26 /* AppDelegate.swift */,
@@ -221,6 +229,11 @@
 				TargetAttributes = {
 					61DBCDE1222626140091EF26 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					61DBCDF5222626170091EF26 = {
 						CreatedOnToolsVersion = 10.1;
@@ -258,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				61DBCDF0222626170091EF26 /* LaunchScreen.storyboard in Resources */,
+				61C26BD82230B197000FC0EA /* GoogleService-Info.plist in Resources */,
 				61DBCDED222626170091EF26 /* Assets.xcassets in Resources */,
 				61DBCDEB222626140091EF26 /* Main.storyboard in Resources */,
 			);
@@ -286,6 +300,7 @@
 			files = (
 				61DBCDE8222626140091EF26 /* ViewController.swift in Sources */,
 				61727E5822290C4000F2BCB2 /* ViewController+CollectionExt.swift in Sources */,
+				61C26BD5222FC551000FC0EA /* Utilities.swift in Sources */,
 				61727E5A22290CDC00F2BCB2 /* ImageCollectionViewCell.swift in Sources */,
 				61727E502227D5A100F2BCB2 /* PhotoHelper.swift in Sources */,
 				61DBCDE6222626140091EF26 /* AppDelegate.swift in Sources */,
@@ -464,16 +479,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KG5F9H52Q8;
+				CODE_SIGN_ENTITLEMENTS = CameraAndLibrary/CameraAndLibrary.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = UEHM6HGACJ;
 				INFOPLIST_FILE = CameraAndLibrary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = shin.CameraAndLibrary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ban9ban3.TestPush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Test Push iOS Development";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -483,16 +500,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = KG5F9H52Q8;
+				CODE_SIGN_ENTITLEMENTS = CameraAndLibrary/CameraAndLibrary.entitlements;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = CameraAndLibrary/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = shin.CameraAndLibrary;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ban9ban3.TestPush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

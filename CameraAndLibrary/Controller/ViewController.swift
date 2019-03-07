@@ -27,6 +27,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var recordingImageView: UIImageView!
     @IBOutlet weak var switchCaptureTypeButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var recordTimerLabel: UILabel!
     // variable
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCapturePhotoOutput?
@@ -35,6 +36,8 @@ class ViewController: UIViewController {
     var currentFlashModeSetting: AVCaptureDevice.FlashMode = .off
     var currentCaptureType: CaptureType = .capture
     var isRecording = false
+    var videoTemproryPath = ""
+    var timer: Timer?
 
     let thumbnailSize = CGSize(width: (UIScreen.main.bounds.width - 30) / 4, height: (UIScreen.main.bounds.width - 30) / 4)
     var fetchResult: PHFetchResult<PHAsset>? = nil
@@ -81,6 +84,7 @@ class ViewController: UIViewController {
         switchCameraButton.setImage(switchCameraImage, for: .normal)
         switchCameraButton.tintColor = .white
         recordingImageView.isHidden = true
+        recordTimerLabel.isHidden = true
     }
 
     private func configCameraView() {
@@ -219,12 +223,38 @@ class ViewController: UIViewController {
         }
     }
 
+    private func startTimer() {
+        var count = 0
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            self?.recordTimerLabel.text = Utilities.formatDurationTime(time: count)
+            count += 1
+        }
+    }
+
+    private func stopTimer() {
+        if let timer = timer {
+            timer.invalidate()
+        }
+        timer = nil
+    }
+
+    @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            print("save video error")
+        } else {
+            print("save video success")
+            guard let image = Utilities.videoSnapshot(filePathLocal: videoPath) else { return }
+            animteFlash()
+            previewImageView.image = image
+        }
+    }
+
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             // we got back an error!
-            print("save error \(error.localizedDescription)")
+            print("save image error \(error.localizedDescription)")
         } else {
-            print("save success")
+            print("save image success")
         }
     }
 
@@ -244,17 +274,32 @@ class ViewController: UIViewController {
         if currentCaptureType == .capture {
             stillImageOutput?.capturePhoto(with: settings, delegate: self)
         } else {
+            guard captureSession.isRunning else {
+                return
+            }
             if isRecording {
+                // update UI
                 isRecording = false
                 recordingImageView.isHidden = true
+                switchCaptureTypeButton.isEnabled = true
+                recordTimerLabel.isHidden = true
+                stopTimer()
                 videoOutput?.stopRecording()
             } else {
+                let movieFileOutputConnection = videoOutput?.connection(with: .video)
+                movieFileOutputConnection?.videoOrientation = .portrait
+                let outputFolder = NSTemporaryDirectory()
+                let outputFilePath = ((outputFolder as NSString).appendingPathComponent("mov") as NSString).appendingPathExtension("mov")
+                guard let outputfilePath = outputFilePath else { return }
+                //update UI
                 isRecording = true
                 recordingImageView.isHidden = false
-                let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-                let fileUrl = paths[0].appendingPathExtension("output.mov")
-                try? FileManager.default.removeItem(at: fileUrl)
-                videoOutput?.startRecording(to: fileUrl, recordingDelegate: self)
+                switchCaptureTypeButton.isEnabled = false
+                recordTimerLabel.isHidden = false
+                startTimer()
+
+                videoTemproryPath = outputfilePath
+                videoOutput?.startRecording(to: URL(fileURLWithPath: outputfilePath), recordingDelegate: self)
             }
         }
     }
@@ -315,8 +360,8 @@ extension ViewController: AVCapturePhotoCaptureDelegate {
         let image = UIImage(data: imageData)
         previewImageView.image = image
         if let image = image {
-            DispatchQueue.main.async {
-                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
+            DispatchQueue.main.async { [weak self] in
+                UIImageWriteToSavedPhotosAlbum(image, self, #selector(self?.image(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         }
     }
@@ -328,7 +373,10 @@ extension ViewController: AVCaptureFileOutputRecordingDelegate {
                     from connections: [AVCaptureConnection], error: Error?) {
         isRecording = false
         recordingImageView.isHidden = true
-        print("abc xyz su`")
+        DispatchQueue.main.async { [weak self] in
+            guard let videoTemproryPath = self?.videoTemproryPath else { return }
+            UISaveVideoAtPathToSavedPhotosAlbum(videoTemproryPath, self, #selector(self?.video(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
     }
 
 }
