@@ -1,4 +1,25 @@
 PODS:
+  - Bolts (1.9.0):
+    - Bolts/AppLinks (= 1.9.0)
+    - Bolts/Tasks (= 1.9.0)
+  - Bolts/AppLinks (1.9.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.9.0)
+  - FacebookSDK (4.38.0):
+    - Bolts (~> 1.9)
+    - FacebookSDK/CoreKit (= 4.38.0)
+    - FacebookSDK/MarketingKit (= 4.38.0)
+  - FacebookSDK/CoreKit (4.38.0):
+    - Bolts (~> 1.9)
+    - FBSDKCoreKit
+  - FacebookSDK/MarketingKit (4.38.0):
+    - Bolts (~> 1.9)
+    - FacebookSDK/CoreKit
+    - FBSDKMarketingKit
+  - FBSDKCoreKit (4.39.1):
+    - Bolts (~> 1.9)
+  - FBSDKMarketingKit (4.38.0):
+    - FBSDKCoreKit
   - Firebase/Core (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAnalytics (= 5.4.0)
@@ -62,11 +83,16 @@ PODS:
   - Protobuf (3.6.1)
 
 DEPENDENCIES:
+  - FacebookSDK
   - Firebase/Core
   - Firebase/Messaging
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Bolts
+    - FacebookSDK
+    - FBSDKCoreKit
+    - FBSDKMarketingKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -79,6 +105,10 @@ SPEC REPOS:
     - Protobuf
 
 SPEC CHECKSUMS:
+  Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
+  FacebookSDK: 73f54b8b94e09b05647cdef0af147f470cd3edc6
+  FBSDKCoreKit: f442aa96179cc9b382bb4abeb7e340a47cca8f91
+  FBSDKMarketingKit: e609f39d74ab273cf52e2f8b7e8829ed412b2827
   Firebase: 8bb9268bff82374f2cbaaabb143e725743c316ae
   FirebaseAnalytics: c06f9d70577d79074214700a71fd5d39de5550fb
   FirebaseAnalyticsInterop: e5f21be9af6548372e2f0815834ff909bff395a2
@@ -90,6 +120,6 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
 
-PODFILE CHECKSUM: 4f7e6653259602c21c1b0b2bbc4da74bdb758efd
+PODFILE CHECKSUM: 438acf75253de5ef6b95098709ef27b9ebafbb13
 
 COCOAPODS: 1.5.3

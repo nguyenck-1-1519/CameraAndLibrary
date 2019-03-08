@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseMessaging
 import UserNotifications
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
@@ -19,23 +20,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        FBSDKApplicationDelegate.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions)
         Messaging.messaging().delegate = self
         configApplePush(application)
+
+        // handle tap notification when app was closed
         if let _ = launchOptions?[.remoteNotification] {
             // tap to notification while app closed
-            fatalError("tap to notification while app closed")
+//            fatalError("tap to notification while app closed")
         }
         return true
     }
 
-//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
-//        // tap to notification while app is in running state
-//        if UIApplication.shared.applicationState == .background {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+        // tap to notification while app is in running state
+        if UIApplication.shared.applicationState == .background {
 //            fatalError("tap to notification while app waked from background")
-//        } else {
+        } else {
 //            fatalError("tap to notification while app is in running state")
-//        }
-//    }
+        }
+    }
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let handled = FBSDKApplicationDelegate.sharedInstance()?.application(app, open: url, options: options)
+        return handled ?? true
+    }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
