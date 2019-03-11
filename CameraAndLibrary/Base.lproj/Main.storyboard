@@ -263,29 +263,96 @@
                                     <action selector="onDismissButtonClicked:" destination="vAB-Ry-adE" eventType="touchUpInside" id="ql0-Dv-fWI"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uOS-1g-cDx">
+                                <rect key="frame" x="295" y="80" width="60" height="198"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="a3D-F2-fQ5">
+                                        <rect key="frame" x="0.0" y="8" width="60" height="190"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfP-G1-A0o">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="BfP-G1-A0o" secondAttribute="height" multiplier="1:1" id="qn0-pA-h0h"/>
+                                                </constraints>
+                                                <state key="normal" image="facebookShareButton"/>
+                                                <connections>
+                                                    <action selector="onFacebookShareClicked:" destination="vAB-Ry-adE" eventType="touchUpInside" id="kjP-A8-oKD"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AYP-3Y-hGe">
+                                                <rect key="frame" x="0.0" y="65" width="60" height="60"/>
+                                                <state key="normal" image="twitterShareButton"/>
+                                                <connections>
+                                                    <action selector="onTwitterSharedClicked:" destination="vAB-Ry-adE" eventType="touchUpInside" id="v0H-US-LKI"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rRe-YV-UbM">
+                                                <rect key="frame" x="0.0" y="130" width="60" height="60"/>
+                                                <state key="normal" image="googleShareButton"/>
+                                                <connections>
+                                                    <action selector="onGoogleShareClicked:" destination="vAB-Ry-adE" eventType="touchUpInside" id="r2d-NG-35y"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="a3D-F2-fQ5" secondAttribute="trailing" id="8QR-Ky-3Ob"/>
+                                    <constraint firstItem="a3D-F2-fQ5" firstAttribute="top" secondItem="uOS-1g-cDx" secondAttribute="top" constant="8" id="D5r-zW-Lx6"/>
+                                    <constraint firstItem="a3D-F2-fQ5" firstAttribute="leading" secondItem="uOS-1g-cDx" secondAttribute="leading" id="PCl-lZ-ZOH"/>
+                                    <constraint firstAttribute="bottom" secondItem="a3D-F2-fQ5" secondAttribute="bottom" id="fJ2-95-Jcg"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JpW-Mj-5Zv">
+                                <rect key="frame" x="295" y="20" width="60" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="04M-9K-x2X">
+                                <rect key="frame" x="295" y="20" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="04M-9K-x2X" secondAttribute="height" multiplier="1:1" id="i6b-ab-l8F"/>
+                                </constraints>
+                                <state key="normal" image="shareButton"/>
+                                <connections>
+                                    <action selector="onShareServiceClicked:" destination="vAB-Ry-adE" eventType="touchUpInside" id="Gbp-BW-qgR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="eTW-Kw-Nkt" firstAttribute="leading" secondItem="JTf-4U-oby" secondAttribute="leading" id="2T0-ue-IvJ"/>
                             <constraint firstAttribute="trailing" secondItem="eTW-Kw-Nkt" secondAttribute="trailing" id="2WU-hu-VyY"/>
+                            <constraint firstItem="JpW-Mj-5Zv" firstAttribute="trailing" secondItem="04M-9K-x2X" secondAttribute="trailing" id="2gQ-wm-9Z9"/>
+                            <constraint firstItem="uOS-1g-cDx" firstAttribute="trailing" secondItem="04M-9K-x2X" secondAttribute="trailing" id="3Vy-Fj-ZFD"/>
+                            <constraint firstItem="JpW-Mj-5Zv" firstAttribute="leading" secondItem="04M-9K-x2X" secondAttribute="leading" id="7Uc-Ut-vbQ"/>
                             <constraint firstAttribute="bottom" secondItem="eTW-Kw-Nkt" secondAttribute="bottom" id="7gx-5D-SET"/>
+                            <constraint firstItem="JpW-Mj-5Zv" firstAttribute="bottom" secondItem="04M-9K-x2X" secondAttribute="bottom" id="DYN-mS-J3I"/>
+                            <constraint firstItem="PD7-xl-ozs" firstAttribute="trailing" secondItem="04M-9K-x2X" secondAttribute="trailing" constant="20" id="GCn-MX-RDk"/>
+                            <constraint firstItem="04M-9K-x2X" firstAttribute="top" secondItem="g7T-Go-QcQ" secondAttribute="top" id="Qwq-4D-IRV"/>
                             <constraint firstItem="g7T-Go-QcQ" firstAttribute="leading" secondItem="PD7-xl-ozs" secondAttribute="leading" constant="20" id="TT5-fJ-oju"/>
                             <constraint firstItem="SYs-un-urS" firstAttribute="height" secondItem="JTf-4U-oby" secondAttribute="height" id="duj-pS-W36"/>
                             <constraint firstItem="SYs-un-urS" firstAttribute="width" secondItem="JTf-4U-oby" secondAttribute="width" id="fzs-rt-9FI"/>
                             <constraint firstItem="g7T-Go-QcQ" firstAttribute="top" secondItem="PD7-xl-ozs" secondAttribute="top" id="j8R-2t-6XU"/>
+                            <constraint firstItem="04M-9K-x2X" firstAttribute="height" secondItem="g7T-Go-QcQ" secondAttribute="height" multiplier="2" id="jlC-kR-Omw"/>
                             <constraint firstItem="eTW-Kw-Nkt" firstAttribute="top" secondItem="JTf-4U-oby" secondAttribute="top" id="kt3-Ft-enf"/>
+                            <constraint firstItem="JpW-Mj-5Zv" firstAttribute="top" secondItem="04M-9K-x2X" secondAttribute="top" id="qss-Ai-cvE"/>
+                            <constraint firstItem="uOS-1g-cDx" firstAttribute="leading" secondItem="04M-9K-x2X" secondAttribute="leading" id="sge-dC-p7i"/>
+                            <constraint firstItem="uOS-1g-cDx" firstAttribute="top" secondItem="04M-9K-x2X" secondAttribute="bottom" id="uXo-d2-iLc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PD7-xl-ozs"/>
                     </view>
                     <connections>
+                        <outlet property="backgroundDropdownView" destination="uOS-1g-cDx" id="x13-Jb-TQP"/>
                         <outlet property="contentImageView" destination="SYs-un-urS" id="CSB-o0-SHY"/>
                         <outlet property="dismissButton" destination="g7T-Go-QcQ" id="kck-Ek-9Bl"/>
                         <outlet property="scrollView" destination="eTW-Kw-Nkt" id="hPk-C7-ZLi"/>
+                        <outlet property="topBackgroundConstraint" destination="uXo-d2-iLc" id="PYG-g5-ArS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4ZO-L5-9ao" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="903" y="134"/>
+            <point key="canvasLocation" x="901.60000000000002" y="133.5832083958021"/>
         </scene>
     </scenes>
     <resources>
@@ -293,6 +360,10 @@
         <image name="FlashOffButton" width="512" height="512"/>
         <image name="RecordButton" width="384" height="384"/>
         <image name="SwitchCamButton" width="96" height="96"/>
+        <image name="facebookShareButton" width="90.352943420410156" height="90.352943420410156"/>
+        <image name="googleShareButton" width="90.352943420410156" height="90.352943420410156"/>
         <image name="recordingImage" width="400.69564819335938" height="400.69564819335938"/>
+        <image name="shareButton" width="384" height="384"/>
+        <image name="twitterShareButton" width="90.352943420410156" height="90.352943420410156"/>
     </resources>
 </document>

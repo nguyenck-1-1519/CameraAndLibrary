@@ -8,7 +8,9 @@ target 'CameraAndLibrary' do
   # Pods for CameraAndLibrary
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
-pod 'FacebookSDK'
+pod 'FacebookCore'
+pod 'FacebookLogin'
+pod 'FacebookShare'
   target 'CameraAndLibraryTests' do
     inherit! :search_paths
     # Pods for testing
