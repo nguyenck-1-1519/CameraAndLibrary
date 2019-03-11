@@ -8,6 +8,9 @@
 
 import UIKit
 import Photos
+import FBSDKCoreKit
+import FBSDKLoginKit
+import FacebookShare
 
 enum ZoomLevel: CGFloat {
     case normal = 1.0
@@ -40,7 +43,9 @@ class ImageDetailViewController: UIViewController {
     @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var contentImageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
-
+    @IBOutlet weak var backgroundDropdownView: UIView!
+    @IBOutlet weak var topBackgroundConstraint: NSLayoutConstraint!
+    
     var asset: PHAsset!
     var currentZoomLvl: ZoomLevel = .normal
     var originalImageCenter: CGPoint?
@@ -58,28 +63,25 @@ class ImageDetailViewController: UIViewController {
         let doubleTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTapGesture(_:)))
         doubleTapGesture.numberOfTapsRequired = 2
         view.addGestureRecognizer(doubleTapGesture)
-//
-//        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(handlePingGesture(_:)))
-//        view.addGestureRecognizer(pinchGesture)
-//
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
-//        view.addGestureRecognizer(panGesture)
+        backgroundDropdownView.alpha = 0
+        topBackgroundConstraint.constant = -backgroundDropdownView.bounds.height
     }
 
-    @objc func handlePanGesture(_ recognizer: UIPanGestureRecognizer) {
-        if isZooming {
-            if recognizer.state == .began {
-                originalImageCenter = recognizer.view?.center
-            } else if recognizer.state == .changed {
-                let translation = recognizer.translation(in: self.view)
-                let dX = contentImageView.center.x + translation.x
-                let dY = contentImageView.center.y + translation.y
-                contentImageView.center = CGPoint(x: dX, y: dY)
-                recognizer.setTranslation(.zero, in: contentImageView.superview)
-            }
-        } else {
-            return
-        }
+    private func animateShowDropdownView() {
+        backgroundDropdownView.alpha = 1
+        UIView.animate(withDuration: 1, animations: { [weak self] in
+            self?.topBackgroundConstraint.constant = 0
+            self?.backgroundDropdownView.layoutIfNeeded()
+        }, completion: nil)
+    }
+
+    private func animateHideDropdownView() {
+        let backgroundHeight = backgroundDropdownView.bounds.height
+        UIView.animate(withDuration: 1, animations: { [weak self] in
+            self?.backgroundDropdownView.alpha = 0
+            self?.topBackgroundConstraint.constant = -backgroundHeight
+            self?.backgroundDropdownView.layoutIfNeeded()
+            }, completion: nil)
     }
 
     @objc func handleDoubleTapGesture(_ recognizer: UITapGestureRecognizer) {
@@ -88,21 +90,65 @@ class ImageDetailViewController: UIViewController {
         let tapPoint = recognizer.location(in: scrollView)
         scrollView.zoomToPoint(zoomPoint: tapPoint, withScale: currentZoomLvl.rawValue, animated: true)
     }
-
-    @objc func handlePingGesture(_ recognizer: UIPinchGestureRecognizer) {
-        if recognizer.state == .began || recognizer.state == .changed {
-            let currentScale = contentImageView.frame.size.width / contentImageView.bounds.size.width
-            var newScale = currentScale * recognizer.scale
-            newScale = newScale >= maxScale ? maxScale : newScale <= minScale ? minScale : newScale
-            currentZoomLvl.getCurrentLevel(scale: newScale)
-            isZooming = newScale != 1
-            contentImageView.transform = CGAffineTransform(scaleX: newScale, y: newScale)
-            recognizer.scale = 1
+    
+    @IBAction func onFacebookShareClicked(_ sender: Any) {
+        if !FBSDKAccessToken.currentAccessTokenIsActive() {
+            let manager = FBSDKLoginManager()
+            manager.logIn(withReadPermissions: ["public_profile"], from: self) { (result, error) in
+                if let error = error {
+                    // Show alert login error
+                    print("facebook login error: \(error)")
+                    return
+                }
+                if let result = result {
+                    if result.isCancelled {
+                        // Show alert login cancel
+                        print("facebook login is canceled")
+                        return
+                    } else {
+                        // Show alert login success
+                        print("facebook login is success")
+                        return
+                    }
+                }
+            }
+        } else {
+            guard let image = contentImageView.image else { return }
+            let shareContent = PhotoShareContent(photos: [Photo(image: image, userGenerated: true)])
+            let shareDialog = ShareDialog(content: shareContent)
+            shareDialog.mode = .native
+            shareDialog.failsOnInvalidData = true
+            shareDialog.completion = { [weak self] result in
+                switch result {
+                case .success:
+                    let alert = UIAlertController(title: "Share", message: "Share success", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(cancelAction)
+                    self?.present(alert, animated: true, completion: nil)
+                default:
+                    let alert = UIAlertController(title: "Share", message: "Share fail", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                    alert.addAction(cancelAction)
+                    self?.present(alert, animated: true, completion: nil)
+                }
+            }
+            try? shareDialog.show()
         }
     }
-
+    @IBAction func onTwitterSharedClicked(_ sender: Any) {
+    }
+    @IBAction func onGoogleShareClicked(_ sender: Any) {
+    }
     @IBAction func onDismissButtonClicked(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+
+    @IBAction func onShareServiceClicked(_ sender: Any) {
+        if topBackgroundConstraint.constant < 0 {
+            animateShowDropdownView()
+        } else {
+            animateHideDropdownView()
+        }
     }
 }
 
