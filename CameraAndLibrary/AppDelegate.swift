@@ -11,14 +11,31 @@ import Firebase
 import FirebaseMessaging
 import UserNotifications
 import FBSDKCoreKit
+import GoogleSignIn
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate, GIDSignInDelegate {
+
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if let error = error {
+            print("Sign in google error: \(error)")
+        } else {
+            print("User id = \(user.userID)")
+            print("Full name = \(user.profile.name)")
+        }
+    }
+
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        print("ERRRRRRRRRRRRRR")
+    }
+
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        GIDSignIn.sharedInstance()?.clientID = "395629890132-r9av56fvfekqjvta9osdlb6q7580vc5q.apps.googleusercontent.com"
+        GIDSignIn.sharedInstance()?.delegate = self
         FirebaseApp.configure()
         FBSDKApplicationDelegate.sharedInstance()?.application(application, didFinishLaunchingWithOptions: launchOptions)
         Messaging.messaging().delegate = self
@@ -43,7 +60,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
 
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         let handled = FBSDKApplicationDelegate.sharedInstance()?.application(app, open: url, options: options)
-        return handled ?? true
+        let handledGoogle = GIDSignIn.sharedInstance()?.handle(url,
+                                                               sourceApplication: options[.sourceApplication] as? String,
+                                                               annotation: options[.annotation])
+        return handled ?? true && handledGoogle ?? true
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
