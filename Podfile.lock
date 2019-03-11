@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (4.8.0)
   - Bolts (1.9.0):
     - Bolts/AppLinks (= 1.9.0)
     - Bolts/Tasks (= 1.9.0)
@@ -97,18 +98,22 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - ObjectMapper (3.4.2)
   - Protobuf (3.6.1)
 
 DEPENDENCIES:
+  - Alamofire
   - FacebookCore
   - FacebookLogin
   - FacebookShare
   - Firebase/Core
   - Firebase/Messaging
   - GoogleSignIn
+  - ObjectMapper
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - Bolts
     - FacebookCore
     - FacebookLogin
@@ -128,9 +133,11 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - nanopb
+    - ObjectMapper
     - Protobuf
 
 SPEC CHECKSUMS:
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   FacebookCore: 74288d0add931d361b1596beae787ab72c438249
   FacebookLogin: ebcf34714a1cb9f0759d9f071cfb01ed500996cf
@@ -150,8 +157,9 @@ SPEC CHECKSUMS:
   GoogleUtilities: 95996bea7c7d9b8fb811b7507669a4a8762f80c7
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
 
-PODFILE CHECKSUM: c43e8d36e22f0bdf7bc18313c2ff758e432d4cb9
+PODFILE CHECKSUM: 3b050af861411ec0e99ca4e9e6345811f9ea7007
 
 COCOAPODS: 1.5.3

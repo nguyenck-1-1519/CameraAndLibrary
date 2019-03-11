@@ -12,6 +12,8 @@ pod 'FacebookCore'
 pod 'FacebookLogin'
 pod 'FacebookShare'
 pod 'GoogleSignIn'
+pod 'Alamofire'
+pod 'ObjectMapper'
   target 'CameraAndLibraryTests' do
     inherit! :search_paths
     # Pods for testing

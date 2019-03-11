@@ -12,6 +12,7 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 import FacebookShare
 import GoogleSignIn
+import Alamofire
 
 enum ZoomLevel: CGFloat {
     case normal = 1.0
@@ -136,12 +137,15 @@ class ImageDetailViewController: UIViewController {
             try? shareDialog.show()
         }
     }
+
     @IBAction func onTwitterSharedClicked(_ sender: Any) {
     }
+
     @IBAction func onGoogleShareClicked(_ sender: Any) {
         GIDSignIn.sharedInstance()?.uiDelegate = self
         GIDSignIn.sharedInstance()?.signIn()
     }
+
     @IBAction func onDismissButtonClicked(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
@@ -152,6 +156,28 @@ class ImageDetailViewController: UIViewController {
         } else {
             animateHideDropdownView()
         }
+    }
+
+    @IBAction func onUploadButtonClicked(_ sender: Any) {
+        guard let image = contentImageView.image else { return }
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else { return }
+        Alamofire.upload(
+            multipartFormData: { multipartFormData in
+                multipartFormData.append(imageData, withName: "file", fileName: "image.jpeg", mimeType: "")
+                multipartFormData.append("uploadImage".data(using: String.Encoding.utf8) ?? Data(), withName: "folder")
+        },
+            to: "http://192.168.15.71:8800/upload.php",
+            encodingCompletion: { encodingResult in
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    upload.responseJSON { response in
+                        debugPrint(response)
+                    }
+                case .failure(let encodingError):
+                    print(encodingError)
+                }
+        }
+        )
     }
 }
 

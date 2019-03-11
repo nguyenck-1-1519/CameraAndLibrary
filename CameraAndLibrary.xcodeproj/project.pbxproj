@@ -14,6 +14,14 @@
 		61727E5C22291F9900F2BCB2 /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61727E5B22291F9900F2BCB2 /* ImageDetailViewController.swift */; };
 		61C26BD5222FC551000FC0EA /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26BD4222FC551000FC0EA /* Utilities.swift */; };
 		61C26BD82230B197000FC0EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 61C26BD72230B197000FC0EA /* GoogleService-Info.plist */; };
+		61C26C1A22363E9F000FC0EA /* BaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26C1922363E9F000FC0EA /* BaseError.swift */; };
+		61C26C1C22363EA5000FC0EA /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26C1B22363EA5000FC0EA /* ErrorResponse.swift */; };
+		61C26C1F22363EB5000FC0EA /* HTTPStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26C1E22363EB5000FC0EA /* HTTPStatusCode.swift */; };
+		61C26C2222363ECA000FC0EA /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26C2122363ECA000FC0EA /* BaseRequest.swift */; };
+		61C26C2522363FEC000FC0EA /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26C2422363FEB000FC0EA /* APIService.swift */; };
+		61C26C2722364336000FC0EA /* UploadImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26C2622364336000FC0EA /* UploadImageRequest.swift */; };
+		61C26C29223647B5000FC0EA /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26C28223647B5000FC0EA /* BaseResponse.swift */; };
+		61C26C2B22365C9B000FC0EA /* PushNotifcationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C26C2A22365C9B000FC0EA /* PushNotifcationStatus.swift */; };
 		61DBCDE6222626140091EF26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBCDE5222626140091EF26 /* AppDelegate.swift */; };
 		61DBCDE8222626140091EF26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61DBCDE7222626140091EF26 /* ViewController.swift */; };
 		61DBCDEB222626140091EF26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61DBCDE9222626140091EF26 /* Main.storyboard */; };
@@ -52,6 +60,14 @@
 		61C26BD4222FC551000FC0EA /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		61C26BD62230AF4C000FC0EA /* CameraAndLibrary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CameraAndLibrary.entitlements; sourceTree = "<group>"; };
 		61C26BD72230B197000FC0EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		61C26C1922363E9F000FC0EA /* BaseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseError.swift; sourceTree = "<group>"; };
+		61C26C1B22363EA5000FC0EA /* ErrorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		61C26C1E22363EB5000FC0EA /* HTTPStatusCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStatusCode.swift; sourceTree = "<group>"; };
+		61C26C2122363ECA000FC0EA /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
+		61C26C2422363FEB000FC0EA /* APIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		61C26C2622364336000FC0EA /* UploadImageRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadImageRequest.swift; sourceTree = "<group>"; };
+		61C26C28223647B5000FC0EA /* BaseResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
+		61C26C2A22365C9B000FC0EA /* PushNotifcationStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotifcationStatus.swift; sourceTree = "<group>"; };
 		61DBCDE2222626140091EF26 /* CameraAndLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraAndLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61DBCDE5222626140091EF26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61DBCDE7222626140091EF26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +133,7 @@
 			children = (
 				61727E4F2227D5A100F2BCB2 /* PhotoHelper.swift */,
 				61C26BD4222FC551000FC0EA /* Utilities.swift */,
+				61C26C2A22365C9B000FC0EA /* PushNotifcationStatus.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -129,6 +146,52 @@
 				61727E5B22291F9900F2BCB2 /* ImageDetailViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		61C26C1722363E5C000FC0EA /* API */ = {
+			isa = PBXGroup;
+			children = (
+				61C26C2322363FE2000FC0EA /* Service */,
+				61C26C2022363EBF000FC0EA /* Request */,
+				61C26C1D22363EA8000FC0EA /* Response */,
+				61C26C1822363E6B000FC0EA /* Error */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		61C26C1822363E6B000FC0EA /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				61C26C1922363E9F000FC0EA /* BaseError.swift */,
+				61C26C1B22363EA5000FC0EA /* ErrorResponse.swift */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		61C26C1D22363EA8000FC0EA /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				61C26C1E22363EB5000FC0EA /* HTTPStatusCode.swift */,
+				61C26C28223647B5000FC0EA /* BaseResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		61C26C2022363EBF000FC0EA /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				61C26C2122363ECA000FC0EA /* BaseRequest.swift */,
+				61C26C2622364336000FC0EA /* UploadImageRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		61C26C2322363FE2000FC0EA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				61C26C2422363FEB000FC0EA /* APIService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		61DBCDD9222626140091EF26 = {
@@ -158,6 +221,7 @@
 			children = (
 				61C26BD62230AF4C000FC0EA /* CameraAndLibrary.entitlements */,
 				61C26BD72230B197000FC0EA /* GoogleService-Info.plist */,
+				61C26C1722363E5C000FC0EA /* API */,
 				61070724222CC6D20076739D /* Controller */,
 				61070723222CC6C20076739D /* Helper */,
 				61DBCDE5222626140091EF26 /* AppDelegate.swift */,
@@ -436,6 +500,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-CameraAndLibrary/Pods-CameraAndLibrary-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
@@ -446,6 +511,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -453,6 +519,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
@@ -463,6 +530,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -478,13 +546,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61C26C1F22363EB5000FC0EA /* HTTPStatusCode.swift in Sources */,
+				61C26C2722364336000FC0EA /* UploadImageRequest.swift in Sources */,
 				61DBCDE8222626140091EF26 /* ViewController.swift in Sources */,
 				61727E5822290C4000F2BCB2 /* ViewController+CollectionExt.swift in Sources */,
 				61C26BD5222FC551000FC0EA /* Utilities.swift in Sources */,
 				61727E5A22290CDC00F2BCB2 /* ImageCollectionViewCell.swift in Sources */,
 				61727E502227D5A100F2BCB2 /* PhotoHelper.swift in Sources */,
+				61C26C2222363ECA000FC0EA /* BaseRequest.swift in Sources */,
 				61DBCDE6222626140091EF26 /* AppDelegate.swift in Sources */,
+				61C26C1C22363EA5000FC0EA /* ErrorResponse.swift in Sources */,
+				61C26C2B22365C9B000FC0EA /* PushNotifcationStatus.swift in Sources */,
 				61727E5C22291F9900F2BCB2 /* ImageDetailViewController.swift in Sources */,
+				61C26C29223647B5000FC0EA /* BaseResponse.swift in Sources */,
+				61C26C2522363FEC000FC0EA /* APIService.swift in Sources */,
+				61C26C1A22363E9F000FC0EA /* BaseError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
