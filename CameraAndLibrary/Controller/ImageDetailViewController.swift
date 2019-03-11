@@ -11,6 +11,7 @@ import Photos
 import FBSDKCoreKit
 import FBSDKLoginKit
 import FacebookShare
+import GoogleSignIn
 
 enum ZoomLevel: CGFloat {
     case normal = 1.0
@@ -138,6 +139,8 @@ class ImageDetailViewController: UIViewController {
     @IBAction func onTwitterSharedClicked(_ sender: Any) {
     }
     @IBAction func onGoogleShareClicked(_ sender: Any) {
+        GIDSignIn.sharedInstance()?.uiDelegate = self
+        GIDSignIn.sharedInstance()?.signIn()
     }
     @IBAction func onDismissButtonClicked(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -182,4 +185,14 @@ extension UIScrollView {
 
     }
 
+}
+
+extension ImageDetailViewController: GIDSignInUIDelegate {
+    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
+        print("present")
+    }
+
+    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+        print("dismiss")
+    }
 }

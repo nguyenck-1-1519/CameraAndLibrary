@@ -88,7 +88,7 @@ class ViewController: UIViewController {
     }
 
     private func configCameraView() {
-//        PHPhotoLibrary.shared().register(self)
+        PHPhotoLibrary.shared().register(self)
         // configure session
         captureSession = AVCaptureSession()
         captureSession?.sessionPreset = .high
@@ -144,7 +144,7 @@ class ViewController: UIViewController {
         videoPreviewLayer?.videoGravity = .resizeAspect
         videoPreviewLayer?.connection?.videoOrientation = .portrait
         guard let videoPreviewLayer = videoPreviewLayer else { return }
-//        cameraView.layer.insertSublayer(videoPreviewLayer, below: controlView.layer)
+        cameraView.layer.insertSublayer(videoPreviewLayer, below: controlView.layer)
 
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             self?.captureSession?.startRunning()
@@ -355,10 +355,10 @@ class ViewController: UIViewController {
 
 extension ViewController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-//        animteFlash()
+        animteFlash()
         guard let imageData = photo.fileDataRepresentation() else { return }
         let image = UIImage(data: imageData)
-//        previewImageView.image = image
+        previewImageView.image = image
         if let image = image {
             DispatchQueue.main.async { [weak self] in
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self?.image(_:didFinishSavingWithError:contextInfo:)), nil)
