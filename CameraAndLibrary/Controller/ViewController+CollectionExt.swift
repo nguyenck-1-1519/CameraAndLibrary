@@ -48,3 +48,9 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
         return thumbnailSize
     }
 }
+
+extension ViewController: PushNotificationStatusDelegate {
+    func onCurrentStatusChanged(status: PushNotificationHandleMode) {
+        notificationHandledStatusLabel.text = status.getLabelTitle()
+    }
+}

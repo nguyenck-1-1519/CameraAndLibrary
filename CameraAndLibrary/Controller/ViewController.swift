@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var switchCaptureTypeButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var recordTimerLabel: UILabel!
+    @IBOutlet weak var notificationHandledStatusLabel: UILabel!
+    
     // variable
     var captureSession: AVCaptureSession?
     var stillImageOutput: AVCapturePhotoOutput?
@@ -54,6 +56,7 @@ class ViewController: UIViewController {
                 self?.chechPhotoAuthorization()
             }
         }
+        PushNotificationStatus.shared.delegate = self
         configView()
         configCameraView()
     }
