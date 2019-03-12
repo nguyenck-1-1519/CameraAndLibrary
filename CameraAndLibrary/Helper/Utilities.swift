@@ -46,9 +46,7 @@ class Utilities {
         do {
             let imageRef = try generator.copyCGImage(at: timestamp, actualTime: nil)
             return UIImage(cgImage: imageRef)
-        }
-        catch let error as NSError
-        {
+        } catch let error as NSError {
             print("Image generation failed with error \(error)")
             return nil
         }

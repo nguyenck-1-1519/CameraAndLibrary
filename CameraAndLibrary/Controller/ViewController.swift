@@ -128,12 +128,12 @@ class ViewController: UIViewController {
     }
 
     private func cameraWithPosition(_ position: AVCaptureDevice.Position) -> AVCaptureDevice? {
-        let deviceDescoverySession = AVCaptureDevice.DiscoverySession
+        let deviceDiscoverySession = AVCaptureDevice.DiscoverySession
             .init(deviceTypes: [.builtInWideAngleCamera],
                   mediaType: .video,
                   position: .unspecified)
 
-        for device in deviceDescoverySession.devices {
+        for device in deviceDiscoverySession.devices {
             if device.position == position {
                 return device
             }
@@ -243,7 +243,7 @@ class ViewController: UIViewController {
 
     @objc func video(_ videoPath: String, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
-            print("save video error")
+            print("save video error \(error)")
         } else {
             print("save video success")
             guard let image = Utilities.videoSnapshot(filePathLocal: videoPath) else { return }
@@ -357,16 +357,35 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: AVCapturePhotoCaptureDelegate {
+
+    func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+        DispatchQueue.main.async { [weak self] in
+            self?.animteFlash()
+        }
+    }
+
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        animteFlash()
         guard let imageData = photo.fileDataRepresentation() else { return }
         let image = UIImage(data: imageData)
         previewImageView.image = image
+        PHPhotoLibrary.shared().performChanges({
+            let creationRequest = PHAssetCreationRequest.forAsset()
+            creationRequest.addResource(with: .photo, data: imageData, options: nil)
+        }) { (success, error) in
+            if let error = error {
+                print("Fail to save image to photo library \(error)")
+            } else {
+                print("Success to save image to photo library")
+            }
+        }
+        /* Not recommend by https://developer.apple.com/documentation/avfoundation/cameras_and_media_capture/requesting_authorization_for_media_capture_on_ios
+        Because UIImage doesnt support the features and metadata in photo output
         if let image = image {
             DispatchQueue.main.async { [weak self] in
                 UIImageWriteToSavedPhotosAlbum(image, self, #selector(self?.image(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         }
+        */
     }
 }
 
